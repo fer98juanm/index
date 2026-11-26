@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ChildStatus {
+  ACTIVE
+  DISCHARGED
+}
+
+enum FamilySituation {
+  ORPHAN
+  WITHOUT_PARENTAL_CARE
+  OTHER
+}
+
+model Child {
+  id             Int             @id @default(autoincrement())
+  firstName      String
+  lastName       String
+  birthDate      DateTime
+  familySituation FamilySituation
+  status         ChildStatus     @default(ACTIVE)
+  admissionDate  DateTime        @default(now())
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+}
